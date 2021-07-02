@@ -6,15 +6,18 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<security:http auto-config="true">
-		<security:intercept-url pattern="/**" access="USER"/>
+		<security:intercept-url pattern="/**" access="hasRole('USER')" />
 	</security:http>
-	
+
 	<security:authentication-manager>
 		<security:authentication-provider>
 			<security:user-service>
-				<security:user name="Surya" password="123456" authorities="USER"/>
-				<security:user name="Admin" password="777879" authorities="ADMIN"/>
+				<security:user name="Surya" password="{noop}123456" authorities="USER" />
+				<security:user name="Admin" password="{noop}777879" authorities="ADMIN" />
 			</security:user-service>
 		</security:authentication-provider>
 	</security:authentication-manager>
+
+	<!-- <bean id="passwordEncoder" class="org.springframework.security.crypto.NoOpPasswordEncoder" 
+		factory-method="getInstance" /> -->
 </beans>
